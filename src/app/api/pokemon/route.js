@@ -1,27 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { fetchPokemonsById } from "@/utils/fetchPokemon";
 
-async function fetchPokemonsById(id) {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
-  const data = await res.json();
+export async function GET() {
+  try {
+    const numArr = Array.from({ length: 151 }, (_, i) => i + 1);
+    const results = await Promise.all(numArr.map(fetchPokemonsById));
 
-  return {
-    id: id,
-    name: data.names.find((el) => el.language.name === "ko").name,
-    description: [
-      ...new Set(
-        data.flavor_text_entries
-          .filter((el) => el.language.name === "ko")
-          .map((el) => el.flavor_text)
-      ),
-    ],
-    genera: data.genera.find((el) => el.language.name === "ko").genus,
-    front: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
-    back: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${id}.png`,
-  };
-}
-
-export async function GET(NextRequest) {
-  const numArr = Array.from({ length: 151 }, (_, i) => i + 1);
-  const results = await Promise.all(numArr.map(fetchPokemonsById));
-  return NextResponse.json(results);
+    return NextResponse.json(results);
+  } catch (error) {
+    return NextResponse.json(
+      { error: "포켓몬 데이터를 불러오는 데 실패했습니다." },
+      { status: 500 }
+    );
+  }
 }
