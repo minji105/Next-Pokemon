@@ -17,7 +17,10 @@ export default function Detail({ params }) {
       .catch((err) => console.error(err));
   }, [pokemonId]);
 
-  if (!pokemon) return <p>로딩 중...</p>;
+  if (!pokemon)
+    return (
+      <div className="my-[80px] flex justify-center text-5xl">Loading...</div>
+    );
 
   return (
     <div className="relative grid md:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_1fr]">
