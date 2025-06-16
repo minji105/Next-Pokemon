@@ -1,20 +1,11 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function Header() {
   const router = useRouter();
   const headerRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setAtTop(headerRef.current.getBoundingClientRect().top === 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -23,7 +14,7 @@ function Header() {
   return (
     <header
       ref={headerRef}
-      className="grid sticky top-0 bg-[#f2f6f8] z-50 border-b-2 border-black
+      className="grid sticky top-0 bg-[#f2f6f8] z-50 border-y-2 border-black
                   md:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_2fr]"
     >
       <div className="col-span-1 flex justify-center items-center border-b-2 md:border-b-0 md:border-r-2 border-black">
