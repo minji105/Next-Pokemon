@@ -2,6 +2,7 @@
 import { useEffect, useState, memo } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import FavoriteButton from "@/components/FavoriteButton";
 
 function Card({ pokemon }) {
   const router = useRouter();
@@ -23,6 +24,7 @@ function Card({ pokemon }) {
         {pokemon.name}
       </div>
       <div className="relative m-4 w-full h-40">
+        <FavoriteButton />
         {!loaded && (
           <div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse rounded" />
         )}

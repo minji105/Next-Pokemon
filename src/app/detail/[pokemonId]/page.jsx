@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import FavoriteButton from "@/components/FavoriteButton";
 
 export default function Detail({ params }) {
   const [pokemon, setPokemon] = useState(null);
@@ -25,6 +26,7 @@ export default function Detail({ params }) {
   return (
     <div className="relative grid md:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_1fr]">
       <div className="basis-1/2 p-12 flex flex-col items-center border-b-2 md:border-b-0 md:border-r-2 border-black">
+        <FavoriteButton position={"top-4 left-4"} />
         <div className="w-full perspective-800">
           <div
             className={`relative w-full aspect-square transition-transform duration-500 transform-style preserve-3d transform-3d ${
